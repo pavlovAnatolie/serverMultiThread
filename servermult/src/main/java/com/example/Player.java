@@ -21,8 +21,7 @@ public class Player extends Thread{
            DataOutputStream out = new DataOutputStream(s.getOutputStream());//output
 
             System.out.println("il dispositivo è stato collegato");
-
-            boolean mac= false;
+            boolean indovinato= false;
 
 
             //metto un contatore per tracciare i tentativi
@@ -47,9 +46,9 @@ public class Player extends Thread{
                     out.writeBytes(tentativi+"\n");
                     System.out.println("server->"+3);
                     System.out.println("server->"+tentativi);
-                    mac = true;
+                    indovinato = true;
                 }
-            } while (!mac);
+            } while (!indovinato);
             s.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
