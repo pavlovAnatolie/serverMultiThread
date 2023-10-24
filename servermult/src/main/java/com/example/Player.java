@@ -4,14 +4,17 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Player extends Thread{
     private int numero;
     Socket s;
+    ArrayList<Player> numThr;
 
-    public Player(int numero,Socket s){
+    public Player(int numero,Socket s,ArrayList<Player> a){
         this.numero = numero;
         this.s = s; 
+        numThr = new ArrayList<Player>(a);
     }
 
     public void run(){
@@ -47,7 +50,16 @@ public class Player extends Thread{
                     System.out.println("server->"+3);
                     System.out.println("server->"+tentativi);
                     indovinato = true;
+
+                    //messaggio in brodcast
+                    for(int  i = 0 ; i < numThr.size(); i++){
+                        numThr.get(i).advert();
+                    }
+
                 }
+
+
+
             } while (!indovinato);
             s.close();
         } catch (Exception e) {
@@ -56,5 +68,15 @@ public class Player extends Thread{
         
     }
 
+public void advert(){
+        try {
+            DataOutputStream out = new DataOutputStream(s.getOutputStream());//output
+            out.writeBytes("!");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
 
 }
+
+    
