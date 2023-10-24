@@ -23,7 +23,7 @@ public class Player extends Thread{
             System.out.println("il dispositivo è stato collegato");
             boolean indovinato= false;
 
-
+            System.out.println(numero);
             //metto un contatore per tracciare i tentativi
             int tentativi = 0;
             do {
